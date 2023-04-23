@@ -4,9 +4,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.checks import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
 
+from store.models import Customer
 from store.models import Product, Collection
+from .forms import EditProfileForm
 
 
 def profile_view(request):
@@ -19,6 +22,18 @@ def profile_view(request):
         return render(request, 'store_custom/profile.html', context)
     else:
         return redirect('login')
+
+
+def edit_profile(request):
+    customer = Customer.objects.get(user=request.user)
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = EditProfileForm(instance=customer)
+    return render(request, 'store_custom/products.html', {'form': form})
 
 
 def product_list(request):
