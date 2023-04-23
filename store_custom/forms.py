@@ -1,6 +1,7 @@
 from django import forms
 from store.models import Customer
 
+
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
