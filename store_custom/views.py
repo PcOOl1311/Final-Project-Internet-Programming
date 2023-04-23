@@ -1,39 +1,39 @@
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from store.models import Customer
 from store.models import Product, Collection
-from .forms import EditProfileForm
+from .forms import UserProfileForm,UserRegistrationForm, EditProfileForm
 
 
+@login_required
 def profile_view(request):
-    # Render the profile page with the current user's information
-    user = request.user
-    if user.is_authenticated:
-        context = {
-            'user': user,
-        }
-        return render(request, 'store_custom/profile.html', context)
-    else:
-        return redirect('login')
-
-
-def edit_profile(request):
-    customer = Customer.objects.get(user=request.user)
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=customer)
+        form = UserProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated.')
+            return redirect('profile')
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'store_custom/profile.html', {'form': form})
+
+
+@login_required
+def edit_profile_view(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect('profile')
     else:
-        form = EditProfileForm(instance=customer)
-    return render(request, 'store_custom/products.html', {'form': form})
+        form = EditProfileForm(instance=request.user)
+    return render(request, 'store_custom/edit_profile.html', {'form': form})
 
 
 def product_list(request):
@@ -82,16 +82,13 @@ def logout_view(request):
 
 
 def register_view(request):
-    form = UserCreationForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('product_list')
-    context = {'form': form}
-    return render(request, 'store_custom/register.html', context)
+            messages.success(request, f'Account created for {username}!')
+            return redirect('login')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'store_custom/register.html', {'form': form})
