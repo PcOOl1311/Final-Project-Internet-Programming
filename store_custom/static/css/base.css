@@ -1,0 +1,35 @@
+/* Set the background color of the body and override any other styles */
+body {
+    background-color: #f8f9f8 !important;
+}
+
+.navbar {
+    background-color: #f8f9fa;
+    font-size: 18px;
+}
+
+/* Change the color of the text on the navbar links */
+.navbar-nav li a {
+    color: #212529 !important;
+}
+
+/* Change the background color of the active navbar link */
+.navbar-nav li.active a {
+    background-color: #6c757d !important;
+    color: #fff !important;
+}
+
+/* Change the color of the text on the footer links */
+.footer-nav li a {
+    color: #6c757d !important;
+}
+
+/* Change the color of the text on the headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #212529 !important;
+}
+
+/* Change the color of the text on the body */
+p, li {
+    color: #495057 !important;
+}
