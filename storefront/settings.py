@@ -91,8 +91,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'flowerShop',
         'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '235813@Mysql'
+        'USER': 'pc',
+        'PASSWORD': 'pciscool'
     }
 }
 
