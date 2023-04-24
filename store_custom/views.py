@@ -1,11 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.core.checks import messages
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
 from store.models import Product, Collection
 from .forms import UserProfileForm, UserRegistrationForm, EditProfileForm
@@ -73,6 +73,7 @@ def login_view(request):
             return redirect('product_list')
         else:
             messages.error(request, 'Invalid username or password')
+            return render(request, 'store_custom/login.html', {'show_alert': True})
 
     return render(request, 'store_custom/login.html')
 

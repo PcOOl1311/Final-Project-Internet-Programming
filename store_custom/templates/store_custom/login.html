@@ -11,11 +11,12 @@
                         <h3 class="text-center">Login</h3>
                     </div>
                     <div class="card-body">
-                        {% if error_message %}
+                        {% if show_alert %}
                             <div class="alert alert-danger" role="alert">
-                                {{ error_message }}
+                                Invalid username or password. Please try again.
                             </div>
                         {% endif %}
+
                         <form method="POST">
                             {% csrf_token %}
                             <div class="mb-3">
