@@ -23,6 +23,7 @@ class Collection(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
+    image = models.ImageField(upload_to='static/media/products/', default=f'{title}.jpg')
     description = models.TextField(null=True, blank=True)
     unit_price = models.DecimalField(
         max_digits=6,

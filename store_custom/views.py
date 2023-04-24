@@ -8,31 +8,32 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 
 from store.models import Product, Collection
-from .forms import UserProfileForm,UserRegistrationForm, EditProfileForm
+from .forms import UserProfileForm, UserRegistrationForm, EditProfileForm
 
 
 @login_required
 def profile_view(request):
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Your profile has been updated.')
-            return redirect('profile')
+    user = request.user
+    if user.is_authenticated:
+        # Disable form fields by setting the `disabled` attribute to True.
+        form = UserProfileForm(instance=user)
+        for field in form.fields.values():
+            field.disabled = True
     else:
-        form = UserProfileForm(instance=request.user)
+        redirect('login')
     return render(request, 'store_custom/profile.html', {'form': form})
 
 
 @login_required
 def edit_profile_view(request):
+    user = request.user
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect('profile')
     else:
-        form = EditProfileForm(instance=request.user)
+        form = EditProfileForm(instance=user)
     return render(request, 'store_custom/edit_profile.html', {'form': form})
 
 

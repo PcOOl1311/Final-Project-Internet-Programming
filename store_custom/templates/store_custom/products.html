@@ -1,4 +1,5 @@
 {% extends 'store_custom/base.html' %}
+{% load static %}
 
 {% block title %}Products{% endblock %}
 
@@ -9,7 +10,8 @@
                 <form method="GET" action="" class="mb-4">
                     <div class="input-group">
                         <label>
-                            <input type="text" name="query" class="form-control" placeholder="Search" value="{{ query }}">
+                            <input type="text" name="query" class="form-control" placeholder="Search"
+                                   value="{{ query }}">
                         </label>
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="submit">Go</button>
@@ -31,12 +33,14 @@
                     {% for product in products %}
                         <div class="col-12 col-sm-6 col-md-4 col-lg-4 mb-4">
                             <div class="card h-100">
-                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                                {% if product.image %}
+                                    <img src="https://picsum.photos/1080/1080?random={{ product.pk }}"  alt=""/>
+                                {% endif %}
                                 <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">{{ product.title }}</h5>
                                     <p class="card-text">{{ product.unit_price }} €</p>
+                                    <p class="card-text">{{ product.inventory }} in stock</p>
                                     <p class="card-text">{{ product.description }}</p>
-                                    <a href="#" class="btn btn-primary align-content-end align-co">Add to Cart</a>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +95,6 @@
                         </ul>
                     </nav>
                 </div>
-
             </div>
         </div>
     </div>

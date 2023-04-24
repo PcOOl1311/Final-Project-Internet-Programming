@@ -8,15 +8,14 @@ from store.models import Customer
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name']
+        fields = ['email', 'username', 'first_name', 'last_name']
         # Add any other fields you want to display on the profile page
 
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email')
-        # You can add any other fields you want users to be able to edit.
+        fields = ('first_name', 'last_name', 'email', 'username')
 
 
 class UserRegistrationForm(UserCreationForm):

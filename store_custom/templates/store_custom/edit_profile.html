@@ -1,0 +1,30 @@
+{% extends 'store_custom/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Edit Profile
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                    <div class="form-group">
+                                        {{ field.label_tag }}
+                                        {{ field|add_class:"form-control" }}
+                                    </div>
+                                {% endfor %}
+                                <button type="submit" class="btn btn-primary mt-3" href="{% url 'profile' %}">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

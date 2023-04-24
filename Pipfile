@@ -8,6 +8,7 @@ django = "*"
 django-debug-toolbar = "*"
 mysqlclient = "*"
 django-widget-tweaks = "*"
+pillow = "*"
 
 [dev-packages]
 
