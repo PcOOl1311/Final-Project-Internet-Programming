@@ -1,3 +1,4 @@
+USE flowerShop;
 insert into store_collection (id, title, featured_product_id)
 values  (2, 'Carnations', null),
         (3, 'Irises', null),
