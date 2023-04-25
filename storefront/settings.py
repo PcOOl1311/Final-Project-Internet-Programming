@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'storefront.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'flowerShop',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'FlowerShop',
         'HOST': 'localhost',
-        'USER': 'pc',
-        'PASSWORD': 'pciscool'
+        'USER': 'testing',
+        'PASSWORD': '235813@Flowershop'
     }
 }
 
