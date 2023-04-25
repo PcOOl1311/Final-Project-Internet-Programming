@@ -5,4 +5,5 @@ django-registration
 django
 pillow
 django-crispy-forms
+mysqlclient
 psycopg
