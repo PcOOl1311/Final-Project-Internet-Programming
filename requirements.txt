@@ -3,8 +3,6 @@ django-debug-toolbar
 django-widget-tweaks
 django-registration
 django
-mysqlclient
 pillow
 django-crispy-forms
-psycopg2
 psycopg
